@@ -1,8 +1,9 @@
 
 const express = require("express");
 const path = require("path");
-
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3000;
 
@@ -47,6 +48,30 @@ app.get("/registro-get", (req, res) => {
 
         </body>
         </html>
+    `);
+});
+
+app.post("/registro-post", (req, res) => {
+    const nombre = req.body.nombre;
+    const apellido = req.body.apellido;
+    const edad = req.body.edad;
+    const correo = req.body.correo;
+    const programa = req.body.programa;
+
+    res.send(`
+        <h1>Datos recibidos correctamente</h1>
+
+        <h2>Información del usuario</h2>
+
+        <p><strong>Nombre:</strong> ${nombre || "No proporcionado"}</p>
+        <p><strong>Apellido:</strong> ${apellido || "No proporcionado"}</p>
+        <p><strong>Edad:</strong> ${edad || "No proporcionada"}</p>
+        <p><strong>Correo:</strong> ${correo || "No proporcionado"}</p>
+        <p><strong>Programa académico:</strong> ${programa || "No proporcionado"}</p>
+
+        <p><strong>Método utilizado:</strong> POST</p>
+
+        <a href="/">Volver al formulario</a>
     `);
 });
 
